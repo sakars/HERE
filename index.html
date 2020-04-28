@@ -16,9 +16,14 @@
    <script src="https://js.api.here.com/v3/3.1/mapsjs-data.js"></script>
    <script src="points.js"></script>
    <script>
+if(document.location.href!="https://sakars.github.io/HERE/"){
+   var k=prompt("Insert API key here");
    var platform = new H.service.Platform({
-apikey: "k1Eo9o8IPGsUujcE3daocDmLPvj3RmCtnTcu_XJoyO0"
-});
+    apikey: k
+    });
+}else{
+  var platform = new H.service.Platform({});
+}
 var defaultLayers = platform.createDefaultLayers();
 
 var map = new H.Map(document.getElementById('map'),
