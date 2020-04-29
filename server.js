@@ -7,6 +7,7 @@ const port = 3000;
 var data="[";
 var filesRead=0;
 var filesFound=0;
+var doit=true;
 var done=false;
 var gpxs=[];
 fs.readdirSync("gpx").forEach(file => {
@@ -25,10 +26,13 @@ setTimeout(()=>{
   for(var i2=0;i2<filesRead;i2++){
     data=data+"[";
     for(let i=0;i<gpxs[i2].tracks[0].segments[0].length;i++){
-      let x=gpxs[i2].tracks[0].segments[0][i];
-      //console.log("["+x.lon+","+x.lat+","+x.elevation+"],");
-      data=data+"["+x.lon+","+x.lat+","+x.elevation+"],"+"\n";
+      if(doit){
+        let x=gpxs[i2].tracks[0].segments[0][i];
+        //console.log("["+x.lon+","+x.lat+","+x.elevation+"],");
+        data=data+"["+x.lon+","+x.lat+","+x.elevation+"],"+"\n";
 
+      }
+      doit=!doit;
     //console.log(data);
     }
     data=data.substring(0,data.length-2);
