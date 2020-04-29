@@ -14,19 +14,14 @@
    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
    <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
    <script src="https://js.api.here.com/v3/3.1/mapsjs-data.js"></script>
-   <script src="points.js"></script>
    <script>
-if(document.location.href!="https://sakars.github.io/HERE/"){
-   var k=prompt("Insert API key here");
+function run(){
+   var k="5qC6cXai5u85JMZVgrctvIMQNkMxLknPtV72R1y6m0c";
    var platform = new H.service.Platform({
-    apikey: k
-    });
-}else{
-  var platform = new H.service.Platform({
-    apikey:"k1Eo9o8IPGsUujcE3daocDmLPvj3RmCtnTcu_XJoyO0"
+  apikey:k, // set your apikey
 });
   //var platform = new H.service.Platform({apikey:"wsNFGqp0SjE4jZpH8KO7"});
-}
+
 var defaultLayers = platform.createDefaultLayers();
 
 var map = new H.Map(document.getElementById('map'),
@@ -47,12 +42,8 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 var ui = H.ui.UI.createDefault(map, defaultLayers);
 
 var circleG=new H.map.Group();
-      other.push([]);
-      for(var i=0;i<pointArray.length;i++){
-        let tmp=pointArray[i]["geometry"]["coordinates"];
-        tmp[2]=pointArray[i]["properties"]["ele"];
-        other[other.length-1].push(tmp);
-      }
+      
+
       var subArr=new H.geo.LineString();
         for(var i=0;i<other.length;i++){
           for(var i2=0;i2<other[i].length;i2++){
@@ -70,139 +61,15 @@ var circleG=new H.map.Group();
             ));
             subArr=new H.geo.LineString();
           }
-          /*circleG.addObject(new H.map.Circle(
-            // The central point of the circle
-            {lat:other[i][1],lng:other[i][0]},
-            // The radius of the circle in meters
-            +20,
-            {
-              style: {
-                strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
-                lineWidth: 0,
-                fillColor: 'rgba(255, 0, 0, 0.1)'  // Color of the circle
-              }
-            }
-          ));*/
 
 map.addObject(circleG);
-/*
-  var routingParameters = {
-    // The routing mode:
-    'mode': 'fastest;pedestrian',
-    // The start point of the route:
-    'waypoint0': 'geo!56.948293,24.033183',
-    // The end point of the route:
-    'waypoint1': 'geo!56.974653,23.882709',
-    'waypoint2': 'geo!56.970543,23.867309',
-    'waypoint3': 'geo!56.974662,23.857560',
-    // To retrieve the shape of the route we choose the route
-    // representation mode 'display'
-    'representation': 'display'
-  };
-
-  // Define a callback function to process the routing response:
-  var onResult = function(result) {
-    var route,
-      routeShape,
-      startPoint,
-      endPoint,
-      linestring;
-    if(result.response.route) {
-    // Pick the first route from the response:
-    route = result.response.route[0];
-    // Pick the route's shape:
-    routeShape = route.shape;
-
-    // Create a linestring to use as a point source for the route line
-    linestring = new H.geo.LineString();
-
-    // Push all the points in the shape into the linestring:
-    routeShape.forEach(function(point) {
-      var parts = point.split(',');
-      linestring.pushLatLngAlt(parts[0], parts[1]);
-    });
-
-    // Retrieve the mapped positions of the point that is in the middle of the road:
-    midPoint = routeShape[Math.round(routeShape.length/2)].split(",");
-
-    // Create a polyline to display the route:
-    var routeLine = new H.map.Polyline(linestring, {
-      style: { strokeColor: 'blue', lineWidth: 6 }
-    });
-    routeLine.setData("Test");
-
-    var group = new H.map.Group();
-
-    map.addObject(group);
-    // add 'tap' event listener, that opens info bubble, to the group
-    map.addEventListener('tap', function (evt) {
-      // event target is the marker itself, group is a parent event target
-      // for all objects that it contains
-      try{
-        let point = {
-          lat:evt.target.getGeometry().getLatLngAltArray()[evt.target.getGeometry().getPointCount()-1],
-          lng:evt.target.getGeometry().getLatLngAltArray()[evt.target.getGeometry().getPointCount()]
-        }
-        var bubble =  new H.ui.InfoBubble({lat:midPoint[0],lng:midPoint[1]}, {
-          // read custom data
-          content: evt.target.getData()
-        });
-        // show info bubble
-        ui.addBubble(bubble);
-      }catch(e){}
-    }, false);
-    // Create a marker for the start point:
-    var roadMarker = new H.map.Marker({
-      lat: midPoint[0],
-      lng: midPoint[1]
-    });
-
-    // Create a marker for the end point:
+}
 
 
-    // Add the route polyline and the two markers to the map:
-    map.addObjects([routeLine]);
-
-    // Set the map's viewport to make the whole route visible:
-    map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
-    }
-  };
-
-  // Get an instance of the routing service:
-  var router = platform.getRoutingService();
-
-  // Call calculateRoute() with the routing parameters,
-  // the callback and an error callback function (called if a
-  // communication error occurs):
-  router.calculateRoute(routingParameters, onResult,
-    function(error) {
-      alert(error.message);
-    });
-*/
 
 
-/*
-var heatmapProvider = new H.data.heatmap.Provider({
-colors: new H.data.heatmap.Colors({
-  '0':'blue',
-  '0.5': 'yellow',
-  '1': 'red'
-}, true),
-opacity: 0.6,
-// Paint assumed values in regions where no data is available
-assumeValues: true
-});
-// Add the data
-heatmapProvider.addData([{lat: 23.998913, lng: 56.959773, value: 1}],true);
-
-// Create a semi-transparent heat map layer
-var heatmapLayer = new H.map.layer.TileLayer(heatmapProvider, {
-  opacity: 0.6
-});
-
-// Add the layer to the map
-map.addLayer(new H.map.layer.TileLayer(heatmapProvider));
-*/
+var other=['ImportGPX'];
+run();
 </script>
 </body>
 </html>

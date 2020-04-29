@@ -1,0 +1,21 @@
+{
+  "name": "HERE-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.2",
+    "express": "^4.16.4",
+    "gpx-parse": "^0.10.4",
+    "here-maps": "^3.0.2",
+    "http": "0.0.1-security",
+    "socket.io": "^2.2.0",
+    "wait-until": "0.0.2"
+  },
+  "devDependencies": {}
+}
