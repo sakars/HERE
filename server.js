@@ -6,10 +6,12 @@ const hostname = '127.0.0.1';
 const port = 3000;
 var data="[";
 var filesRead=0;
+var filesFound=0;
 var done=false;
 var gpxs=[];
 fs.readdirSync("gpx").forEach(file => {
   //data=data+"[";
+  filesFound++;
   gpxParse.parseGpxFromFile("./gpx/"+file, function(error, gpx) {
 
     //console.log(data);
@@ -18,7 +20,6 @@ fs.readdirSync("gpx").forEach(file => {
   });
 
 });
-
 
 setTimeout(()=>{
   for(var i2=0;i2<filesRead;i2++){
@@ -35,7 +36,7 @@ setTimeout(()=>{
   }
 data=data.substring(0,data.length-2);
 data=data+"]";
-console.log(data);
+console.log(filesFound);
 http.createServer(function (req, res) {
   fs.readFile('index.html','utf8', function(err, htm) {
     res.writeHead(200, {'Content-Type': 'text/html'});
