@@ -4,6 +4,7 @@ const gpxParse = require('gpx-parse');
 var waitUntil = require('wait-until');
 const hostname = '127.0.0.1';
 const port = process.env.PORT | 3000;
+console.log(port);
 var data="[";
 var filesRead=0;
 var filesFound=0;
