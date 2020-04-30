@@ -69,7 +69,7 @@ http.createServer(function (req, res) {
       let done=false;
       var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
-        if(files.filetoupload.path){
+        if(files.filetoupload.path.substring(files.filetoupload.path.length-3)=="gpx"){
           var oldpath = files.filetoupload.path;
           var newpath = "gpx/" + filesFound+".gpx";
           fs.rename(oldpath, newpath, function (err) {
