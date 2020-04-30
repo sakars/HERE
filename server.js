@@ -80,6 +80,10 @@ http.createServer(function (req, res) {
             return res.end();
             }
           });
+        }else{
+          res.writeHead(200, {'Content-Type': 'text/html'});
+          res.write("File not found!");
+          return res.end();
         }
    });
  }else{
