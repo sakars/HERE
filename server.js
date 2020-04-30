@@ -11,19 +11,29 @@ var filesFound=0;
 var doit=true;
 var done=false;
 var gpxs=[];
-fs.readdirSync("gpx").forEach(file => {
+var fileCache=[];
+fileCache=fs.readdirSync("gpx");
+filesFound=fileCache.length;
+fileCache.forEach(file => {
   //data=data+"[";
-  filesFound++;
   gpxParse.parseGpxFromFile("./gpx/"+file, function(error, gpx) {
 
     //console.log(data);
     gpxs[filesRead]=gpx;
     filesRead++;
+    console.log(filesRead);
   });
 
 });
 
-setTimeout(()=>{
+console.log(filesFound);
+waitUntil()
+    .interval(500)
+    .times(Infinity)
+    .condition(function() {
+        return (filesFound==filesRead ? true : false);
+    })
+    .done(function(result) {
   for(var i2=0;i2<filesRead;i2++){
     data=data+"[";
     for(let i=0;i<gpxs[i2].tracks[0].segments[0].length;i++){
@@ -49,4 +59,4 @@ http.createServer(function (req, res) {
     return res.end();
   });
 }).listen(port);
-},10000);
+});
