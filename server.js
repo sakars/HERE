@@ -69,18 +69,25 @@ http.createServer(function (req, res) {
       let done=false;
       var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
-        var oldpath = files.filetoupload.path;
-        var newpath = "gpx/" + filesFound+".gpx";
-        fs.rename(oldpath, newpath, function (err) {
-          if (err) throw err;
-          pullData();
-        });
+        try {
+          var oldpath = files.filetoupload.path;
+          var newpath = "gpx/" + filesFound+".gpx";
+          fs.rename(oldpath, newpath, function (err) {
+            if (err) {throw err;}else{
+            //pullData();
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write("File uploaded!");
+            return res.end();
+            }
+          });
+        } catch (e) {
+        }
    });
- }
+ }else{
     fs.readFile('index.html','utf8', function(err, htm) {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write(htm.replace("['ImportGPX']",data));
       return res.end();
     });
-
+  }
 }).listen(port);
