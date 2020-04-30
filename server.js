@@ -43,7 +43,7 @@ function pullData(){
       .done(function(result) {
     for(var i2=0;i2<filesRead;i2++){
       data=data+"[";
-      for(let i=0;i<gpxs[i2].tracks[0].segments[0].length;i++){
+        for(let i=0;i<gpxs[i2].tracks[0].segments[0].length;i++){
         if(doit){
           let x=gpxs[i2].tracks[0].segments[0][i];
           //console.log("["+x.lon+","+x.lat+","+x.elevation+"],");
@@ -69,7 +69,7 @@ http.createServer(function (req, res) {
       let done=false;
       var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
-        try {
+        if(files.filetoupload.path){
           var oldpath = files.filetoupload.path;
           var newpath = "gpx/" + filesFound+".gpx";
           fs.rename(oldpath, newpath, function (err) {
@@ -80,7 +80,6 @@ http.createServer(function (req, res) {
             return res.end();
             }
           });
-        } catch (e) {
         }
    });
  }else{
