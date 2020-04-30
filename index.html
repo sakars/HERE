@@ -4,11 +4,15 @@
    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
    <style>
       html, body { border: 0; margin: 0; padding: 0; }
-      #map { height: 100vh; width: 100vw; }
+      #map { height: 90vh; width: 100vw; }
    </style>
 </head>
 <body>
    <div id="map"></div>
+   <form action="fileupload" method="post" enctype="multipart/form-data">
+     <input type="file" accept=".gpx" name="filetoupload"><br>
+     <input type="submit">
+     </form>
    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
