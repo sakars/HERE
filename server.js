@@ -74,7 +74,7 @@ http.createServer(function (req, res) {
           var newpath = "gpx/" + filesFound+".gpx";
           fs.rename(oldpath, newpath, function (err) {
             if (err) {throw err;}else{
-            //pullData();
+            pullData();
             res.writeHead(200, {'Content-Type': 'text/html'});
             res.write("File uploaded!");
             return res.end();
